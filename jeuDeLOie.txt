@@ -1,0 +1,161 @@
+ALGORITHME: jeuDeLOie
+BUT: simuler une partie de jeu de l'oie
+//algorithme principal
+
+CONST:
+    DEPART <- 0 : ENTIER    //case de départ
+    ARRIVEE <- 66 : ENTIER  //case d'ARRIVEE
+    MORT <- 56 : ENTIER     //case tete de mort
+    OIE <- 9 : ENTIER       //multiple des cases 'Oie'
+
+    DES_MIN <- 1 : ENTIER   //valeur minimale d'un dé
+    DES_MAX <- 6 : ENTIER   //valeur maximale d'un dé
+    DES_NB <- 2 : ENTIER    //nombre de dés
+
+VAR:
+    casePion : ENTIER   //case ou se trouve le joueur
+
+DEBUT
+    casePion <- 0   //initialisation de la position du joueur
+
+    ECRIRE "JEU DE L'OIE"
+    ECRIRE "Parvenez a atteindre la case 66 du plateau !"
+
+    TANTQUE (casePion <> ARRIVEE) FAIRE
+    //répétition tant que l'arrivee n'est pas atteinte
+
+        casePion <- partie(casePion)
+    
+    FINTANTQUE
+
+FIN
+
+
+//algorithmes secondaires
+
+FONCTION partie(casePion : ENTIER)
+BUT: simuler un tour complet
+ENTREE: un entier
+SORTIE: un entier
+
+VAR:
+    sommeDes : ENTIER
+    ok : CARACTERE
+
+DEBUT 
+    sommeDes <- 0
+    ok <- ''
+
+    ECRIRE "Appuyez sur Entree pour lancer les des !"
+    LIRE ok
+    sommeDes <- lanceDes    //lance des des
+
+    casePion <- majPlateau(casePion, sommeDes)  //deplacement du pion
+
+    casePion <- casesEffets(casePion, sommeDes) //detection des cases spéciales
+
+    partie <- casePion
+
+FIN
+
+
+FONCTION majPlateau(casePion, sommeDes : ENTIER)
+BUT: mise a jour de la position du joueur
+ENTREE: deux entiers
+SORTIE: un entier
+
+VAR:
+    newCase, surplus : ENTIER 
+
+DEBUT
+    newCase <- casePion + sommeDes
+
+    SI (newCase > ARRIVEE) ALORS
+
+        surplus <- newCase - ARRIVEE
+        newCase <- ARRIVEE - surplus
+
+        ECRIRE "Vous etes alle au-dela de la case d'arrivee"
+        ECRIRE "Vous reculez donc de ", newCase, " depuis l'arrivee..."
+
+    FINSI
+
+    ECRIRE "Vous avez atterri sur la case ", newCase
+
+    majPlateau <- newCase
+
+FIN
+
+
+FONCTION casesEffets(casePion, sommeDes : ENTIER)
+BUT: detection des cases spéciales
+ENTREE: deux entiers
+SORTIE: un entier 
+
+DEBUT
+    SI (casePion = ARRIVEE) ALORS 
+
+        ECRIRE "Victoire !!"
+
+    SINON
+        SI (casePion = MORT) ALORS
+
+            ECRIRE "Oh non, c'est la case 'Mort' !! Vous retournez a la case de depart !!"
+
+            casePion <- DEPART
+
+        SINON
+            SI ((casePion MOD OIE = 0) ET (casePion < (ARRIVEE-OIE))) ALORS
+
+                casePion <- casePion + sommeDes
+                ECRIRE "C'est une case 'Oie', votre deplacement est double!"
+                ECRIRE "Vous avancez donc en case ", casePion
+
+            FINSI
+        FINSI
+    FINSI
+
+    casesEffets <- casePion
+
+FIN
+
+
+FONCTION lanceDes
+BUT: lancer les des et additionner les nombres obtenus
+SORTIE: un entier 
+
+VAR:
+    randTemp, iTemp, sommeDes : ENTIER 
+
+DEBUT 
+
+    sommeDes <- 0
+
+    POUR iTemp DE 1 A DES_NB FAIRE
+    //répétition autant de fois que le nombre de des 
+
+        randTemp <- nbRand
+        sommeDes <- sommeDes + randTemp
+
+    FINPOUR
+
+    ECRIRE "Vous avez lance un ", sommeDes
+
+    lanceDes <- sommeDes
+
+FIN
+
+
+FONCTION nbRand
+BUT: generation d'un nombre aléatoire entre 1 et 6
+SORTIE: un entier 
+
+VAR:
+    nbTemp : ENTIER 
+
+DEBUT 
+    nbTemp <- <nombre aléatoire entre DES_MIN et DES_MAX>
+
+    nbRand <- nbTemp
+
+FIN

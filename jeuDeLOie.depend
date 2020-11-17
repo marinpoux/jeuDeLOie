@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1605628844 source:c:\users\marin\desktop\cours\fd 2\algo\exercices\jeudeloie\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
