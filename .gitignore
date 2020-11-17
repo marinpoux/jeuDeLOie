@@ -1,7 +1,7 @@
 #gitignore jeuDeLOie
 
-/jeuDeLOie/bin/Debug/jeuDeLOie.exe
-/jeuDeLOie/ogb/Debug/main.o
+#/jeuDeLOie/bin/Debug/jeuDeLOie.exe
+#/jeuDeLOie/ogb/Debug/main.o
 
 *.exe
 *.o
