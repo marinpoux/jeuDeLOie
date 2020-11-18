@@ -19,7 +19,7 @@ DEBUT
     casePion <- 0   //initialisation de la position du joueur
 
     ECRIRE "JEU DE L'OIE"
-    ECRIRE "Parvenez a atteindre la case 66 du plateau !"
+    ECRIRE "Parvenez a atteindre la case ", ARRIVEE, " du plateau !"
 
     TANTQUE (casePion <> ARRIVEE) FAIRE
     //répétition tant que l'arrivee n'est pas atteinte

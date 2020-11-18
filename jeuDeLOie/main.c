@@ -36,7 +36,7 @@ int main()
 {
     int casePion=DEPART;    //initialisation de la position du joueur
 
-    printf("JEU DE L'OIE\nParvenez a atteindre la case 66 du plateau !\n");
+    printf("JEU DE L'OIE\nParvenez a atteindre la case %d du plateau !\n", ARRIVEE);
 
     //initialisation de la génération de nombres aléatoires
     srand(time(NULL));
